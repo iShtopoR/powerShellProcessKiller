@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 $processName = "ИмяПроцесса"  # Замените на имя вашего процесса
-$logPath = "C:\Путь\К\Логу\KillProcess.log"  # Замените на путь к лог-файлу
+
+Write-Host "Запущен мониторинг старта процесса $processName"
 
 while ($true) {
     Start-Sleep -Seconds 5  # Пауза в секундах, чтобы не нагружать систему
@@ -10,9 +11,9 @@ while ($true) {
 
     if ($runningProcesses.Count -gt 0) {
         $date = Get-Date
-        $logEntry = "Процесс $processName запущен. Завершение... [$date]"
-        Write-Host $logEntry
-        Add-Content -Path $logPath -Value $logEntry
+        Write-Host "[$date]Процесс $processName запущен. Завершение..."
         Stop-Process -Name $processName -Force
+    }else{
+        # Write-Host "[$date]Процесс $processName еще не запущен."
     }
 }
